@@ -2,6 +2,7 @@ import express, { Application, Router } from 'express';
 import mongoose from 'mongoose'
 import cors from 'cors'
 import UserRouter from '../interface/routes/UserRouter'
+import AdminRouter from '../interface/routes/AdminRoutes'
 
 const app: Application = express()
 const port: number = 3000
@@ -19,6 +20,7 @@ mongoose.connect(MONGO_URL).then(()=>{
 })
 
 app.use('/', UserRouter)
+app.use('/admin', AdminRouter)
 
 app.listen(port, () => {
     console.log(`server listening on port ${port}`)

@@ -43,9 +43,14 @@ export const loginUser = async (req: Request, res: Response) => {
         } else {
             const existingUser = await getUserByEmail(email)
             if (existingUser) {
+                const isMatch = await bcrypt.compare(password, existingUser.password)
+                if (isMatch) {
                 const secretKey = process.env.TOKEN_KEY as string
                 const token = await jwt.sign({ _id: existingUser._id }, secretKey, { expiresIn: '24h' })
                 return res.status(200).json({ success: true, message: "User login successfull!", existingUser, token })
+                } else {
+                    return res.status(400).json({ message: "Invalid password" })
+                }
             } else {
                 return res.status(400).json({ message: "User not exist" })
             }
