@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 const MONGO_URL = 'mongodb://localhost:27017/poumki-task'
-mongoose.connect(MONGO_URL).then(()=>{
+mongoose.connect(MONGO_URL).then(() => {
     console.log('Database connected')
 })
 
